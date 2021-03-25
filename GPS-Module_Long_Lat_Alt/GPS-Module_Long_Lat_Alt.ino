@@ -2,18 +2,16 @@
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 
-static const int RXPin = 4, TXPin = 3;
-static const uint32_t GPSBaud = 9600;
 
 // The TinyGPS++ object
 TinyGPSPlus gps;
 
 // The serial connection to the GPS device
-SoftwareSerial ss(RXPin, TXPin);
+SoftwareSerial ss(12, 11);
 
 void setup(){
-  Serial.begin(9600);
-  ss.begin(GPSBaud);
+  Serial.begin(38400);
+  ss.begin(9600);
 }
 
 void loop(){
@@ -38,4 +36,37 @@ void loop(){
       Serial.println(gps.hdop.value()); 
     }
   }
+  /*
+    #ifdef OUTPUT_GPS_MODULE_SD
+    myFile.print("Latitude = "); 
+      myFile.println(gps.location.lat(), 6);
+      myFile.print("Longitude = "); 
+      myFile.println(gps.location.lng(), 6);
+      myFile.print("Speed in m/s = ");
+      myFile.println(gps.speed.mps());
+      myFile.print("Altitude in meters = "); 
+      myFile.println(gps.altitude.meters()); 
+      myFile.print("HDOP = "); 
+      myFile.println(gps.hdop.value()); 
+    #endif
+*/
+  /*    #ifdef OUTPUT_GPS_MODULE_SERIAL
+        while (ss.available() > 0){
+        gps.encode(ss.read());
+        if (gps.location.isUpdated()){
+        Serial.print("Latitude = "); 
+        Serial.println(gps.location.lat(), 6);
+        Serial.print("Longitude = "); 
+        Serial.println(gps.location.lng(), 6);
+        Serial.print("Speed in m/s = ");
+        Serial.println(gps.speed.mps());
+        Serial.print("Altitude in meters = "); 
+        Serial.println(gps.altitude.meters()); 
+        Serial.print("HDOP = "); 
+        Serial.println(gps.hdop.value()); 
+
+        }
+    }
+    #endif
+    */
 }
